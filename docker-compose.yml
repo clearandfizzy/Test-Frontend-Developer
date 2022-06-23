@@ -1,0 +1,26 @@
+version: '2'
+services:
+  test-frontend:
+    container_name: test-frontend
+    image: clearandfizzy/core:reactjs-alpine
+    volumes:
+      - .:/app:delegated
+    networks:
+      - hta-net
+    ports:
+      - "3000:3000"
+      - "3010:3010"
+      - "9000:9000"
+      - "9005:9005"
+      - "9099:9099"
+      - "8080:8080"
+      - "8081:8081"
+      - "4400:4400"
+      - "4000:4000"
+      - "8888:8888"
+      - "9199:9199"
+    tty: true
+
+networks:
+  hta-net:
+    driver: "bridge"

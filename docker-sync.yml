@@ -1,0 +1,4 @@
+version: "2"
+syncs:
+  pi-react-frontend:
+    src: ${PWD}/share/.cache
