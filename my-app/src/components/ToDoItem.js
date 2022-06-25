@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 export const ToDoItem = (props) => {
 	const {item} = props;
+	// const [dispatch] = useReducer(reducer, {}, useContext(AppContext));
 
-	const handleSolved = () => {
-
-	}
+	const handleClick = () => {
+		// dispatch({type: "COMPLETE", id: item.id});
+	};
 
 	const Button = styled.button`
 	padding: 0.5em;
@@ -18,18 +19,15 @@ export const ToDoItem = (props) => {
 	margin: 0.25em
 `;
 
-	const Td = styled.td`
-	`;
-
 	return (
 		<React.Fragment>
 			<Li>
 				<table>
 					<tbody>
 					<tr>
-						<Td><Button onClick={() => handleSolved()}>Solved</Button></Td>
-						<Td>{new Date(item.date.toString()).toLocaleDateString()}</Td>
-						<Td>{item.title} - {item.description}</Td>
+						<td><Button onClick={() => handleClick()}>Solved</Button></td>
+						<td>{new Date(item.date.toString()).toLocaleDateString()}</td>
+						<td>{item.title} - {item.description}</td>
 					</tr>
 					</tbody>
 				</table>
