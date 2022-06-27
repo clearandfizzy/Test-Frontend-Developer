@@ -1,26 +1,21 @@
 import React, {useContext} from 'react';
-import {ToDoItem} from "./ToDoItem";
 import styled from "styled-components";
-import {AppContext} from '../context';
+import {ToDoItem} from "./ToDoItem";
+import {AppContext} from "../provider";
 
-export const ToDoList = () => {
-	const [appState] = useContext(AppContext);
-
-	if (!appState.listItems instanceof Array)
-		return (<React.Fragment>No List Items</React.Fragment>)
-
-	if (appState.listItems.length <= 0)
-		return (<React.Fragment>No List Items</React.Fragment>)
-
-	const Ol = styled.ol`
+const Ol = styled.ol`
 	list-style-type: none;
 	`;
 
+export const ToDoList = () => {
+	const {items} = useContext(AppContext);
+
 	return (
 		<React.Fragment>
+			<h1>test</h1>
 			<Ol>
 				{
-					appState.listItems.map((i, index) => {
+					items.map((i, index) => {
 						return (<ToDoItem key={index} item={i}/>);
 					})
 				}

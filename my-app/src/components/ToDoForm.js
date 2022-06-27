@@ -1,12 +1,13 @@
 import React, {useState, useContext} from 'react';
 import styled from "styled-components";
-import {CustomInput} from "./ToDo/CustomInput";
-import {AppContext} from "../context";
+import {CustomInput} from "./ToDoForm/CustomInput";
+import {AppContext} from "../provider";
 
 const Form = styled.form`
 	padding: 5px;
 	margin: 2px;
 `;
+
 const FieldSet = styled.fieldset`
 	padding: 5px;
 	margin: 2px;
@@ -20,11 +21,11 @@ const Button = styled.button`
 `;
 
 export const ToDoForm = () => {
-	const [appState, dispatch] = useContext(AppContext);
 	const [item, setItem] = useState({});
 
-	console.log(item);
-	console.log(appState);
+	const {dispatch} = async() => {
+		return await useContext(AppContext);
+	}
 
 	const onChange = (key, value) => {
 		setItem((prevState) => ({
@@ -34,6 +35,7 @@ export const ToDoForm = () => {
 	}
 
 	const handleClick = () => {
+		console.log('click');
 		dispatch({type: "ADD", item: item});
 	};
 
@@ -42,8 +44,8 @@ export const ToDoForm = () => {
 			<Form>
 				<FieldSet>
 					<legend>Add ToDo Form</legend>
-					<CustomInput id={'title'} label={'Title'} value={item.title} onChange={onChange}/>
-					<CustomInput id={'description'} label={'Description'} value={item.description} onChange={onChange}/>
+					<CustomInput id={'title'} label={'Title:'} value={item.title} onChange={onChange}/>
+					<CustomInput id={'description'} label={'Description:'} value={item.description} onChange={onChange}/>
 					<Button type={'button'}
 							onClick={() => handleClick()}>Add Todo</Button>
 				</FieldSet>

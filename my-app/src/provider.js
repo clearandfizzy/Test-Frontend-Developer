@@ -1,37 +1,45 @@
 import React from "react";
-import {AppContext} from "./context";
+import {createContext} from 'react';
 
-export const initialState = {
-	listItems: []
-}
+export const AppContext = createContext();
+export const initialState = [];
 
-export const reducer = (state = initialState, action) => {
-	console.log('action');
-	console.log(action);
+const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "ADD":
-			state.listItems.push({...state.item, created: new Date()});
-			console.log('new state');
-			console.log(state);
-			return state;
-		case "COMPLETE":
-			return state.listItems.map((item) => {
+			return [
+				...state,
+				{
+					...action.item,
+					id: state.length,
+					status: 0,
+					created: new Date()
+				}
+			];
+
+
+		case "SOLVED":
+			return state.map(item => {
 				return (item.id === action.id)
-					? {...item, completed: true}
+					? {...item, status: 1}
 					: item;
-			});
+			})
 
 		default:
 			return state;
+
 	}
-};
+}
 
 export const Provider = ({children}) => {
-	const [appState, dispatch] = React.useReducer(reducer, initialState);
+	const itemsState = React.useReducer(reducer, initialState);
 
 	return (
-		<AppContext.Provider value={[appState, dispatch]}>
+		<AppContext.Provider value={{
+			items: itemsState[0],
+			dispatch: itemsState[1]
+		}}>
 			{children}
 		</AppContext.Provider>
 	);
-};
+}
