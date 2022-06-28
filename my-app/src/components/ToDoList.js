@@ -12,7 +12,7 @@ export const ToDoList = () => {
 
 	return (
 		<React.Fragment>
-			<h1>test</h1>
+			<h2>Items</h2>
 			<Ol>
 				{
 					items.map((i, index) => {

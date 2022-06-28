@@ -44,8 +44,8 @@ export const ToDoForm = () => {
 			<Form>
 				<FieldSet>
 					<legend>Add ToDo Form</legend>
-					<CustomInput id={'title'} label={'Title:'} value={item.title} onChange={onChange}/>
-					<CustomInput id={'description'} label={'Description:'} value={item.description} onChange={onChange}/>
+					<CustomInput id={'title'} label={'Title'} value={item.title} onChange={onChange}/>
+					<CustomInput id={'description'} label={'Description'} value={item.description} onChange={onChange}/>
 					<Button type={'button'}
 							onClick={() => handleClick()}>Add Todo</Button>
 				</FieldSet>
