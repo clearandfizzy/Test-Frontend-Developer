@@ -1,8 +1,7 @@
-import React from "react";
-import {createContext} from 'react';
+import React, {createContext} from "react";
 
-export const AppContext = createContext();
 export const initialState = [];
+export const AppContext = createContext(initialState);
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -32,14 +31,17 @@ const reducer = (state = initialState, action) => {
 }
 
 export const Provider = ({children}) => {
-	const itemsState = React.useReducer(reducer, initialState);
+	const [state, dispatch] = React.useReducer(reducer, initialState);
+
+	const value = {
+		items: state,
+		dispatch: dispatch
+	};
 
 	return (
-		<AppContext.Provider value={{
-			items: itemsState[0],
-			dispatch: itemsState[1]
-		}}>
+		<AppContext.Provider value={value}>
 			{children}
 		</AppContext.Provider>
 	);
 }
+

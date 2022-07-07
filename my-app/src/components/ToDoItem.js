@@ -19,9 +19,7 @@ const Td = styled.td`
 export const ToDoItem = (props) => {
 	const {item} = props;
 
-	const {dispatch} = async() => {
-		return await useContext(AppContext);
-	}
+	const {dispatch} = useContext(AppContext);
 
 	const handleClick = () => {
 		dispatch({type: "SOLVED", id: item.id});

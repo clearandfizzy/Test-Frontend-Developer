@@ -23,9 +23,7 @@ const Button = styled.button`
 export const ToDoForm = () => {
 	const [item, setItem] = useState({});
 
-	const {dispatch} = async() => {
-		return await useContext(AppContext);
-	}
+	const {dispatch} =  useContext(AppContext);
 
 	const onChange = (key, value) => {
 		setItem((prevState) => ({
@@ -35,7 +33,6 @@ export const ToDoForm = () => {
 	}
 
 	const handleClick = () => {
-		console.log('click');
 		dispatch({type: "ADD", item: item});
 	};
 
