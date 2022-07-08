@@ -7,7 +7,7 @@ describe('Renders the Title input', () => {
 		render(
 			<ToDoForm />
 		);
-		const e = screen.getAllByLabelText('Title:');
+		const e = screen.getAllByLabelText('Title');
 		expect(e[0]).toBeInTheDocument();
 	});
 });
@@ -17,7 +17,7 @@ describe('Renders the Description input', () => {
 		render(
 			<ToDoForm />
 		);
-		const e = screen.getAllByLabelText('Description:');
+		const e = screen.getAllByLabelText('Description');
 		expect(e[0]).toBeInTheDocument();
 	});
 });
