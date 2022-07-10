@@ -1,5 +1,6 @@
 import React, {createContext} from "react";
 import {AppState} from "./types/AppState";
+import RootObject = AppState.RootObject;
 
 const initialState: AppState.RootObject = {
     items: [],
@@ -42,10 +43,11 @@ export const reducer = (state = initialState, action: any) => {
     }
 }
 
-export const StateProvider = ({children}: any) => {
-    const [state, dispatch] = React.useReducer(reducer, initialState as never);
-
-    const value = {
+export const generateValue = (
+    state: RootObject,
+    dispatch: Function
+) => {
+    return {
         items: state[AppState.Keys.items],
         addItem: (item: AppState.TodoItem) => {
             dispatch({type: AppState.Actions.ADD_ITEM, item: item});
@@ -54,8 +56,12 @@ export const StateProvider = ({children}: any) => {
             dispatch({type: AppState.Actions.SOLVED, id: id});
         }
     };
+}
 
-    return (<AppContext.Provider value={value}>
+export const StateProvider = ({children}: any) => {
+    const [state, dispatch] = React.useReducer(reducer, initialState as never);
+
+    return (<AppContext.Provider value={generateValue(state, dispatch)}>
         {children}
     </AppContext.Provider>);
 }

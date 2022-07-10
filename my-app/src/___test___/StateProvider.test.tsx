@@ -1,5 +1,5 @@
 import React from "react";
-import {reducer} from '../StateProvider';
+import {generateValue, reducer, StateProvider} from '../StateProvider';
 import {AppState} from "../types/AppState";
 
 const mockItem = {
@@ -7,10 +7,10 @@ const mockItem = {
     description: 'test',
 }
 
-describe('Renders a Todo list Item Title and Description', () => {
+describe('Adds Todo list Item Title and Description', () => {
     it('should pass', async () => {
-            const result = reducer(undefined, {type: AppState.Actions.ADD_ITEM, item: mockItem});
-            const resultItem = result.items[0];
+            const state = reducer(undefined, {type: AppState.Actions.ADD_ITEM, item: mockItem});
+            const resultItem = state.items[0];
 
             expect(
                 resultItem.id === 0 &&
@@ -22,3 +22,21 @@ describe('Renders a Todo list Item Title and Description', () => {
         }
     )
 });
+
+describe('Marks a Todo list item as solved', () => {
+    it('should pass', async () => {
+            const state = reducer(undefined, {type: AppState.Actions.ADD_ITEM, item: mockItem});
+            const result = reducer(state, {type: AppState.Actions.SOLVED, id: 0});
+            const resultItem = result.items[0];
+
+            expect(
+                resultItem.id === 0 &&
+                resultItem.title === mockItem.title &&
+                resultItem.description === mockItem.description &&
+                resultItem.created !== undefined &&
+                resultItem.status === AppState.STATUS.solved
+            ).toBe(true);
+        }
+    )
+});
+
