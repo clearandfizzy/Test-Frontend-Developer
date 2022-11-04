@@ -10,7 +10,7 @@ const App = () => {
         <StateProvider>
             <CustomAppBar />
             <Container maxWidth={"sm"}>
-                <h1>Type Script Technical Test (Todo List)</h1>
+                <h1>Typescript Technical Test (Todo App)</h1>
                 <ToDoForm/>
                 <Divider sx={{mt: 4, mb: 1}}/>
                 <ToDoList/>
