@@ -24,14 +24,18 @@ export const ToDoForm = () => {
             <Container maxWidth={"sm"}>
                 <Stack direction={'column'} spacing={2}>
                     <TextField id={'title'}
+                               size={'medium'}
                                label={'Title'}
                                value={item?.title ?? ''}
                                onChange={(e) => onChange('title', e.target.value)}/>
                     <TextField id={'description'}
+                               size={'medium'}
                                label={'Description'}
                                value={item?.description ?? ''}
                                onChange={(e) => onChange('description', e.target.value)}/>
-                    <Button size={"large"}
+                    <Button id={'button'}
+                            size={'large'}
+                            color={"success"}
                             variant={"contained"}
                             onClick={() => handleClick()}>Add Task</Button>
                 </Stack>

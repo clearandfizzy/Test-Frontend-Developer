@@ -1,0 +1,10 @@
+[build]
+	publish = "./build"
+	functions = "./src/functions"
+	command = "npm run test && npm run build"
+[functions]
+	node_bundler = "esbuild"
+[[redirects]]
+	from = "/*"
+	to = "/index.html"
+	status = 200
