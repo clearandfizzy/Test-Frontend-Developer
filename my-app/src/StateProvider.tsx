@@ -1,33 +1,39 @@
-import React, {createContext} from "react";
-import {AppState} from "./types/AppState";
-import RootObject = AppState.RootObject;
+import React, { createContext, useReducer } from "react";
+import { AppState } from "./types/AppState";
 
+// Define the initial state based on the AppState.RootObject
 const initialState: AppState.RootObject = {
     items: [],
 };
 
+// Context creation with initial state
 export const AppContext = createContext(initialState);
 
-export const reducer = (state = initialState, action: any) => {
+// Define action type for type safety
+type Action =
+    | { type: AppState.Actions.ADD_ITEM; item: AppState.TodoItem }
+    | { type: AppState.Actions.SOLVED; id: number };
 
+// Reducer function with return type annotation
+export const reducer = (state: AppState.RootObject = initialState, action: Action): AppState.RootObject => {
     switch (action.type) {
 
-        case "ADD_ITEM":
+        case AppState.Actions.ADD_ITEM:
             return {
                 ...state,
                 [AppState.Keys.items]: [
                     ...state[AppState.Keys.items],
                     {
+                        ...action.item,
                         id: state[AppState.Keys.items].length,
-                        title: action.item.title,
-                        description: action.item.description,
+                        created: new Date(),
                         status: AppState.STATUS.open,
-                        created: new Date()
+                        dueDate: action.item.dueDate || new Date()
                     }
                 ]
             }
 
-        case "SOLVED":
+        case AppState.Actions.SOLVED:
             return {
                 ...state,
                 [AppState.Keys.items]: state[AppState.Keys.items].map(item => {
@@ -39,12 +45,11 @@ export const reducer = (state = initialState, action: any) => {
 
         default:
             return state;
-
     }
 }
 
 export const generateValue = (
-    state: RootObject,
+    state: AppState.RootObject,
     dispatch: Function
 ) => {
     return {
@@ -59,7 +64,7 @@ export const generateValue = (
 }
 
 export const StateProvider = ({children}: any) => {
-    const [state, dispatch] = React.useReducer(reducer, initialState as never);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     return (<AppContext.Provider value={generateValue(state, dispatch)}>
         {children}

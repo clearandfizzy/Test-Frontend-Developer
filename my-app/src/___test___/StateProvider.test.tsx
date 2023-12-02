@@ -3,9 +3,13 @@ import {generateValue, reducer, StateProvider} from '../StateProvider';
 import {AppState} from "../types/AppState";
 
 const mockItem = {
+    id: 123,
     title: 'test',
     description: 'test',
-}
+    created: new Date(),
+    dueDate: new Date(),
+    status: AppState.STATUS.open,
+} as AppState.TodoItem;
 
 describe('Adds Todo list Item Title and Description', () => {
     it('should pass', async () => {

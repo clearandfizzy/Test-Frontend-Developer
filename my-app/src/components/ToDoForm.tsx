@@ -4,8 +4,12 @@ import {AppState} from "../types/AppState";
 import {Button, TextField, Stack, Container} from "@mui/material";
 
 export const ToDoForm = () => {
-    const [item, setItem] = useState<AppState.TodoItem>({} as AppState.TodoItem);
+    const [item, setItem] = useState<AppState.TodoItem>({
+        ...{}, // other properties
+        dueDate: new Date() // initialize with current date
+    } as AppState.TodoItem);
     const {addItem} = useContext(AppContext) as unknown as AppState.StateContext;
+
 
     const onChange = (key: string, value: any) => {
         setItem((prevState) => ({
@@ -16,7 +20,7 @@ export const ToDoForm = () => {
 
     const handleClick = () => {
         addItem(item);
-        setItem({} as AppState.TodoItem);
+        setItem({...{}, dueDate: new Date()} as AppState.TodoItem); // reset with current date
     };
 
     return (
@@ -33,6 +37,16 @@ export const ToDoForm = () => {
                                label={'Description'}
                                value={item?.description ?? ''}
                                onChange={(e) => onChange('description', e.target.value)}/>
+                    <TextField id={'dueDate'}
+                               type="date"
+                               size={'medium'}
+                               label={'Due Date'}
+                               InputLabelProps={{
+                                   shrink: true,
+                               }}
+                               value={item.dueDate.toISOString().split('T')[0]}
+                               onChange={(e) => onChange('dueDate', new Date(e.target.value))}
+                    />
                     <Button id={'button'}
                             size={'large'}
                             color={"success"}

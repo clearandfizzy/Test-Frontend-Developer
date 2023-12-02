@@ -27,12 +27,14 @@ export namespace AppState {
         description: string,
         created: Date,
         status: AppState.STATUS,
+        dueDate: Date 
     }
 
     export enum STATUS {
         'open' = '0',
         'solved' = '1'
     }
+
 }
 
 export {}

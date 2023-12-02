@@ -42,7 +42,7 @@ destroy-hard: ## Destroy and clean the environment.
 
 stop: ## Stops/pause the environment.
 	docker-compose stop
-	
+
 	@echo "Please wait..." && echo "✔ Completed"
 
 refresh: ## Refresh the environment without loosing images nor volumes.
@@ -68,4 +68,11 @@ login-reactjs:
 login-node:
 	docker-compose exec ${BOX_REACTJS} bash
 
+chatgpt: ## New task for file merging
+	@docker-compose exec ${BOX_REACTJS} bash -c "\
+      find my-app/src -type f -print | while read -r f; do \
+        if [[ \"\$$f\" != *\.ttf ]]; then \
+          echo 'File: '\$$f; cat \$$f; echo; echo; \
+        fi; \
+      done > chatgpt_todo_merge_file.txt"
 
